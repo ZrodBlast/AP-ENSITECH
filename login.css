@@ -1,0 +1,119 @@
+body {
+    background-color: var(--main);
+}
+
+.title-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 35vh;
+}
+
+.title h1 {
+    color: var(--stroke);
+    font-family: monospace;
+    overflow: hidden; 
+    border-right: .15em solid var(--highlight); 
+    white-space: nowrap; 
+    letter-spacing: .05em; 
+    font-size: 3em;
+    font-family: 'Mooli', sans-serif;
+    animation: 
+      typing 2s steps(20, end),
+      blink-caret 1s step-end infinite;
+}
+  
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+  
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--highlight) }
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 75vh;
+    padding: 0 2.5em;
+}
+
+.card {
+    background-color: var(--main);
+    position: relative;
+    top: -15vh;
+    padding: 2.5em;
+    border: 0.13em var(--stroke) solid;
+    border-radius: 0.3em;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.card-title h3 {
+    font-size: 1.5em;
+}
+
+.card-form {
+    display: flex;
+    flex-direction: column;
+    padding-top: 3em;
+}
+
+.card-form input, select {
+    height: 2.5em;
+    margin-bottom: 1.25em;
+    padding: .5em;
+}
+
+.card-form input {
+    height: 2.5em;
+    margin-bottom: 1.25em;
+    padding: .5em;
+}
+
+.card-form-double {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5em;
+}
+
+.card-form-double input {
+    width: 15em;
+}
+
+.card-bottom-form {
+    padding-top: 1.5em;
+    display: flex;
+    justify-content: space-between;
+    gap: 2.5em;
+}
+
+.card-bottom-right-form {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+}
+
+
+@media screen and (max-width: 600px) {
+    .card-bottom-right-form {
+        flex-direction: column;   
+        font-size: .65em;
+    }
+
+    .card-form-double input {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    p {
+        font-size: .9em;
+    }
+}

@@ -1,0 +1,371 @@
+
+body {
+    background-color: var(--secondary);
+    width: 100%;
+    height: 100vh;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    background-color: var(--main);
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 2em;
+    height: 7.5vh;
+    min-height: 50px;
+    z-index: 10;
+}
+
+.type p {
+    font-size: 1.5em;
+}
+
+main {
+    height: 92.5vh;
+}
+
+main .title {
+    width: 100%;
+    padding: 4em 5em;
+}
+
+main .title .selectDate {
+    margin-left: 1.5em;
+    padding: .5em;
+    border-radius: .5em;
+    border: none;
+}
+
+.title form {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    margin: 0 0 1em 0;
+}
+
+.title .user-name {
+    display: flex;
+    justify-content: space-between;
+}
+
+select{
+    padding: .45em 1.25em;
+    border-radius: .4em;
+    border: none;
+    font-size: 1.25em;
+    background: none;
+    overflow: hidden;
+}
+
+.select_users {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+
+
+.libelle_classes option:target {
+    background-color: var(--highlight);
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3em;
+    padding: 0 3em 3em 3em;
+}
+
+.container-cr {
+    width: 100%;
+    height: 92.5vh;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    z-index: 2;
+}
+
+.container_users {
+    width: 30em;
+    height: 92.5vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 5em;
+    gap: 1.5em;
+}
+
+.card_users {
+    width: 35em;
+    background-color: var(--main);
+    padding: 1em;
+    border-radius: 0.3em;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+    color: var(--stroke);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card_param {
+    width: 35em;
+    background-color: var(--main);
+    padding: 1em;
+    border-radius: 0.3em;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+    color: var(--stroke);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+
+.card_users_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 75%;
+}
+
+.card-cr {
+    max-width: 30em;
+    background-color: var(--main);
+    padding: 1em;
+    margin-top: -10em;
+    border-radius: 0.3em;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+    color: var(--stroke);
+    flex: 1 1 160px;
+}
+
+.card-cr-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    flex-direction: row;
+}
+
+.card-cr-header h1 {
+    width: 75%;
+    white-space: nowrap;
+    overflow: hidden; 
+}
+
+.card-cr hr {
+    margin: 1em 1em 0 1em;
+}
+
+.card-cr .hr-cr {
+    margin: 1em;
+}
+
+.card-cr .img {
+    padding: .5em .5em .5em 0;
+}
+
+.card-cr-header input {
+    position: relative;
+    width: 70%;
+    height: 2.5em;
+    padding: .5em;
+}
+
+.card-cr-header button {
+    position: relative;
+    right: 0;
+}
+
+#new-cr-descr {
+    width: 100%;
+    max-width: 100%;
+    height: 15vh;
+    max-height: 20vh;
+    padding: .5em;
+}
+
+.add_new_cr {
+    width: 100%;
+}
+
+.card {
+    min-width: 15em;
+    max-width: 25em;
+    background-color: var(--main);
+    padding: 1em;
+    border-radius: 0.3em;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+    color: var(--stroke);
+    flex: 1 1 160px;
+}
+
+.card h4 {
+    font-size: 1.5em;
+    padding: 0 0.5em;
+}
+
+.card hr {
+    margin: 0.5em 0;
+}
+
+.card p {
+    white-space: nowrap; 
+    overflow: hidden; 
+    padding: 0 0.5em;
+}
+
+.footer {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    left: 1em;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 0;
+}
+
+
+
+@media screen and (max-width: 600px) {
+
+    .title .form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .title .form .cr-param {
+        width: 75%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .title .form .refresh{
+        margin-top: -20px;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .container form {
+        width: 100%;
+    }
+
+    .container .card {
+        width: 100%;
+    }
+
+    .card-cr {
+        min-width: 50%;
+        max-width: 75%;
+    }
+
+    .card-cr-header {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-cr-header h1 {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden; 
+    }
+
+    .card-cr-header .form {
+        margin-top: 1em;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 1em;
+    }
+
+    .card-cr .form {
+        margin-top: 1em;
+        display: flex;
+        justify-content: center;
+    }
+
+    .form button {
+        width: 45%;
+    }
+
+    .container_users {
+        width: 100%;
+    }
+
+    .card_users {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .card_users select {
+        text-align: center;
+    }
+
+    .card_users form {
+        display: flex;
+        justify-content: center;
+        gap: 1em;
+        width: 100%;
+    }
+
+    .card_users form button {
+        width: 100%;
+    }
+
+    .type {
+        display: none;
+    }
+
+    main .title {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 4em 0;
+    }
+
+    .title form {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+
+
+    .title .user-name {
+        width: 50%;
+    }
+
+    footer {
+        display: block; 
+        text-align: center; 
+    }
+
+    footer button {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    p {
+        font-size: .9em;
+    }
+
+    .card_users_header {
+        display: flex;
+        flex-direction: column;
+    }
+}
