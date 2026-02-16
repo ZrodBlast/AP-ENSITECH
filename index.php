@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS cr_notes (
 $showUserModal = false;
 
 // Rôle utilisateur
-$role = $user['role'] ?? null; // 'prof' | 'eleve'
+$role = $user['role'] ?? null; // 'prof' | 'eleve' | 'admin' | 'secretariat' | null
 
 // --------------------------------------------------------------------
 // Gestion formulaires
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $note = trim($_POST['note'] ?? '');
         if ($cr_id > 0 && $note !== '' && is_numeric($note)) {
             $note_val = (float)$note;
-            if ($note_val >= 0 && $note_val <= 20) {
+            if ($note_val >= 0 && $note_val <= 5) {
                 $stmt = $connexion->prepare("INSERT INTO cr_notes (cr_id, prof_email, note) VALUES (?, ?, ?)");
                 $stmt->bind_param("isd", $cr_id, $user['email'], $note_val);
                 $stmt->execute();
@@ -185,7 +185,7 @@ while ($row = $result->fetch_assoc()) {
     $comptes_rendus[] = $row;
 }
 
-// Statistiques (affichées pour les profs)
+// Statistiques (affichées pour les admins et secrétariats)
 $res = $connexion->query("SELECT COUNT(*) AS total_eleves FROM utilisateurs WHERE role = 'eleve'");
 $nb_eleves = $res->fetch_assoc()['total_eleves'] ?? 0;
 
@@ -295,6 +295,7 @@ if (!empty($comptes_rendus)) {
     </div>
     <div class="type">
         <h2>Bienvenue <?= htmlspecialchars($user['nom'] ?? '') ?> !</h2>
+        <h3>Rôle : <?= htmlspecialchars($user['role'] ?? '') ?></h3>
     </div>
     <div class="leave">
         <form method="POST">
@@ -316,7 +317,7 @@ if (!empty($comptes_rendus)) {
                 <input type="date" name="selectDate" class="selectDate" value="2025-05-06" min="2025-01-01" max="2025-12-21" />
             </div>
             <button type="submit" name="refresh" class="refresh" onclick="location.reload(); return false;">Actualiser</button>
-<?php if ($user && $role === 'prof') { ?>
+<?php if ($user && ($role === 'admin' || $role === 'secretariat')) { ?>
             <div class="type">
                 <div style="margin: 30px auto; max-width: 800px; padding: 20px; border: 1px solid #ccc; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); background: #fff;">
                     <h2 style="text-align: center; margin-bottom: 20px;">📊 Statistiques</h2>
@@ -349,7 +350,7 @@ if (!empty($comptes_rendus)) {
                                     <td style="padding: 10px; border: 1px solid #ddd;"><?= htmlspecialchars($ligne['nom']) ?></td>
                                     <td style="padding: 10px; border: 1px solid #ddd; text-align: center;"><?= $ligne['nb_cr'] ?></td>
                                 </tr>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -366,7 +367,7 @@ if (!empty($comptes_rendus)) {
         <?php if (isset($_GET['comment_added'])) echo "<p class='alert alert-ok'>💬 Commentaire ajouté.</p>"; ?>
         <?php if (isset($_GET['comment_error'])) echo "<p class='alert alert-err'>❌ Commentaire invalide.</p>"; ?>
         <?php if (isset($_GET['note_added'])) echo "<p class='alert alert-ok'>⭐ Note enregistrée.</p>"; ?>
-        <?php if (isset($_GET['note_error'])) echo "<p class='alert alert-err'>❌ Note invalide (0 à 20).</p>"; ?>
+        <?php if (isset($_GET['note_error'])) echo "<p class='alert alert-err'>❌ Note invalide (0 à 5).</p>"; ?>
         <?php if (isset($erreur)) echo "<p class='alert alert-err'>$erreur</p>"; ?>
     </div>
     <script>
@@ -388,7 +389,7 @@ if (!empty($comptes_rendus)) {
                     — <small><?= htmlspecialchars($cr['date_cr']) ?></small>
                     <?php if ($stat): ?>
                         <span class="note-badge" title="Moyenne / Nombre de notes">
-                            <?= number_format($stat['moyenne'], 2, ',', ' ') ?>/20 · <?= (int)$stat['nb'] ?> note<?= ((int)$stat['nb']>1?'s':'') ?>
+                            <?= number_format($stat['moyenne'], 2, ',', ' ') ?>/5 · <?= (int)$stat['nb'] ?> note<?= ((int)$stat['nb']>1?'s':'') ?>
                         </span>
                     <?php else: ?>
                         <span class="note-badge muted">Non noté</span>
@@ -408,9 +409,9 @@ if (!empty($comptes_rendus)) {
                             <input type="hidden" name="id" value="<?= $cr_id ?>">
                             <button type="submit" name="delete_cr">🗑️ Supprimer</button>
                         </form>
-                    <?php elseif ($role === 'prof'): ?>
+                    <?php elseif ($role === 'prof' || $role === 'admin' || $role === 'secretariat'): ?>
                         <!-- Prof : lecture seule -->
-                        <span class="muted">Lecture seule (prof)</span>
+                        <span class="muted">Lecture seule</span>
                     <?php endif; ?>
                 </div>
 
@@ -440,8 +441,8 @@ if (!empty($comptes_rendus)) {
 
                     <form method="POST" class="grade-form">
                         <input type="hidden" name="cr_id" value="<?= $cr_id ?>">
-                        <label>Attribuer une note (0-20) :</label>
-                        <input type="number" name="note" class="grade-input" step="0.5" min="0" max="20" required>
+                        <label>Attribuer une note (0-5) :</label>
+                        <input type="number" name="note" class="grade-input" step="0.5" min="0" max="5" required>
                         <button type="submit" name="noter_cr" class="btn">Enregistrer la note</button>
                     </form>
                 <?php endif; ?>
@@ -496,7 +497,7 @@ if (!empty($comptes_rendus)) {
             <?php if ($user): ?>
                 <div class="user-info-row"><b>Nom</b><span><?= htmlspecialchars($user['nom']) ?></span></div>
                 <div class="user-info-row"><b>Email</b><span><?= htmlspecialchars($user['email']) ?></span></div>
-                <div class="user-info-row"><b>Rôle</b><span><?= htmlspecialchars($role) ?></span></div>
+                <div class="user-info-row"><b>Rôle</b><span><?= htmlspecialchars($user['role']) ?></span></div>
             <?php else: ?>
                 <p>Aucun utilisateur connecté.</p>
             <?php endif; ?>

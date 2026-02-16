@@ -4,7 +4,7 @@ include("_conf.php"); // Connexion à la BDD (vérifie si $pdo est déjà défin
 try {
     // Créer une nouvelle connexion PDO si elle n’existe pas déjà
     if (!isset($pdo)) {
-        $pdo = new PDO('mysql:host=localhost;dbname=u937355202_mTeixeiraBDD', 'u937355202_mTeixeira', 'MTeix3145&');
+        $pdo = new PDO('mysql:host=localhost;dbname=projet_teixeira', 'root', '');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 } catch (PDOException $e) {
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="role">Rôle :</label>
         <select name="role" id="role" required>
             <option value="eleve">Élève</option>
-            <option value="professeur">Professeur</option>
+            <option value="prof">Professeur</option>
         </select>
         <br><br>
         <button type="submit">S'inscrire</button>

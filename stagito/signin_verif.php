@@ -4,7 +4,7 @@ include("_conf.php"); // Connexion à la BDD
 try {
     // Créer une nouvelle connexion PDO si elle n’existe pas déjà
     if (!isset($pdo)) {
-        $pdo = new PDO('mysql:host=localhost;dbname=u937355202_mTeixeiraBDD', 'u937355202_mTeixeira', 'MTeix3145&');
+        $pdo = new PDO('mysql:host=localhost;dbname=projet_teixeira', 'root', '');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 } catch (PDOException $e) {
@@ -28,7 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($user && password_verify($mot_de_passe, $user['mot_de_passe'])) {
             // Tu peux démarrer une session ici si besoin
              session_start();
-             $_SESSION['user_id'] = $user['id'];
+             // Dans signin.php (ou script de connexion)
+            $_SESSION['nom'] = $user['nom']; // Gardez le nom pour l'affichage si vous le souhaitez
+            $_SESSION['email'] = $user['email']; // Stockez l'email ici
 
             // Rediriger vers index.php après connexion réussie
             header('Location: index.php');

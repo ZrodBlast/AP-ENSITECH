@@ -29,10 +29,13 @@
                         <option value="2">SIO SLAM 2</option>
                         <option value="3">SIO CIEL 1</option>
                         <option value="4">SIO CIEL 2</option>
+                        <option value="5">Autre</option>
                     </select>
                     <select name="role" id="role" required>
                         <option value="eleve">Élève</option>
                         <option value="prof">Professeur</option>
+                        <option value="secretariat">Secrétariat</option>
+                        <option value="admin">Administrateur</option>
                     </select>
                     <input type="text" name="email" placeholder="email" value="" required>
                     <input type="password" name="password" placeholder="Mot de passe" required>
